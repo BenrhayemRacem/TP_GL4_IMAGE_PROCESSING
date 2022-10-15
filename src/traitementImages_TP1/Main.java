@@ -7,6 +7,10 @@ public class Main {
 		try {
 			pgmObj.readImage();
 			pgmObj.writeImage();
+			pgmObj.calculateMean();
+			pgmObj.calculateStandardDesviation();
+			pgmObj.calculateHistogram();
+			pgmObj.calculateCumulativeHistogram();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

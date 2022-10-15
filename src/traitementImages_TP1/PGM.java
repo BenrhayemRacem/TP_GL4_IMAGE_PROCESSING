@@ -19,6 +19,10 @@ public class PGM {
 	public int ly = 0;
 	public int maxPixelValue = 0;
 	public short[][] image = null;
+	public double mean = 0 ;
+	public double standardDeviation = 0;
+	public short[] greyLevelHistogram = null ;
+	public int[] cumulativeHistogram = null ;
 
 	public void readImage() throws Exception {
 		int i = 0;
@@ -92,4 +96,74 @@ public class PGM {
 
 	}
 	}
+	
+	public void calculateMean() {
+		long pixels = this.lx * this.ly ;
+		double sum = 0 ;
+		for(int i =0 ; i < this.lx ; i++) {
+			for(int j=0 ; j< this.ly ; j++) {
+				sum+=image[i][j];
+			}
+		}
+		this.mean = sum /pixels ;
+		System.out.println(this.mean);
+	
+	}
+	
+	public void calculateStandardDesviation() {
+		long pixels = this.lx * this.ly ;
+		double sum = 0 ;
+		for(int i =0 ; i < this.lx ; i++) {
+			for(int j=0 ; j< this.ly ; j++) {
+				
+				sum+=Math.pow( image[i][j]-this.mean,2);
+			}
+		}
+		this.standardDeviation = Math.pow(sum/pixels , 0.5);
+		System.out.println(this.standardDeviation);
+	}
+	
+	
+	public void calculateHistogram() {
+		this.greyLevelHistogram= new short[this.maxPixelValue+1] ;
+		
+		for(int i =0 ; i < this.lx ; i++) {
+			for(int j=0 ; j< this.ly ; j++) {
+				
+				this.greyLevelHistogram[image[i][j]]+=1;
+			}
+		}
+		//this.printGreyLevelHistogram();
+		
+	}
+	public void printGreyLevelHistogram() {
+		System.out.println("n\tH(n)");
+		//long sum =0;
+		for(int i =0 ; i< this.greyLevelHistogram.length ; i++) {
+			System.out.println(i +"\t"+this.greyLevelHistogram[i]);
+			//sum+=this.greyLevelHistogram[i];
+		}
+		//System.out.println(sum==this.lx*this.ly);
+	}
+	
+	public void calculateCumulativeHistogram() {
+		this.cumulativeHistogram= new int[this.maxPixelValue+1] ;
+		this.cumulativeHistogram[0] = this.greyLevelHistogram[0];
+		for(int i =1 ; i< this.greyLevelHistogram.length ; i++) {
+			this.cumulativeHistogram[i] = this.greyLevelHistogram[i]+this.cumulativeHistogram[i-1];
+			
+		}
+	this.printCumulativeHistogram();
+	}
+	
+	public void printCumulativeHistogram() {
+		System.out.println("n\tHc(n)");
+		for(int i =0 ; i< this.cumulativeHistogram.length ; i++) {
+			System.out.println(i +"\t"+this.cumulativeHistogram[i]);
+			
+		}
+		
+	}
+	
+	
 }
