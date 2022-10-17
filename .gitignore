@@ -2,6 +2,7 @@
 .editorconfig  
 .factorypath  
 .gitattributes  
-.project  
-.settings/  
+.project
 bin/ 
+.settings/  
+ 
