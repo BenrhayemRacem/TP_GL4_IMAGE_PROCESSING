@@ -26,7 +26,7 @@ public class PGM {
 
 	public void readImage() throws Exception {
 		int i = 0;
-		File file = new File("chat.pgm");
+		File file = new File("chat2.pgm");
 		Scanner input = new Scanner(file);
 		List<String> list = new ArrayList<String>();
 
@@ -46,7 +46,7 @@ public class PGM {
 		lx = Integer.parseInt(list.get(i).substring(list.get(i).indexOf(' ') + 1));
 		maxPixelValue = Integer.parseInt(list.get(i + 1));
 
-		System.out.println(lx + "aaa" + ly + "aaaa" + maxPixelValue);
+		//System.out.println(lx + "aaa" + ly + "aaaa" + maxPixelValue);
 
 		int j = i + 2;
 		image = new short[lx][ly];
@@ -55,6 +55,7 @@ public class PGM {
 			String[] lineStr = list.get(ligne).split("\\s+");
 
 			for (int k = 0; k < ly; k++) {
+				//System.out.println(ligne-j);
 				image[ligne - j][k] = Short.parseShort(lineStr[k]);
 
 			}
@@ -74,11 +75,11 @@ public class PGM {
 		}
 	}
 	
-	public void writeImage() throws Exception {
+	public void writeImage(String filename) throws Exception {
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-	              new FileOutputStream("writeImage.pgm"), "utf-8"))) {
+	              new FileOutputStream(filename), "utf-8"))) {
 	   writer.write(format);writer.write("\n");
-	   writer.write(lx+" "+ly+"\n");
+	   writer.write(ly+" "+lx+"\n");
 	   writer.write(maxPixelValue+"\n");
 	   
 	  
@@ -149,11 +150,11 @@ public class PGM {
 	public void calculateCumulativeHistogram() {
 		this.cumulativeHistogram= new int[this.maxPixelValue+1] ;
 		this.cumulativeHistogram[0] = this.greyLevelHistogram[0];
-		for(int i =1 ; i< this.greyLevelHistogram.length ; i++) {
+		for(int i =1 ; i< this.cumulativeHistogram.length ; i++) {
 			this.cumulativeHistogram[i] = this.greyLevelHistogram[i]+this.cumulativeHistogram[i-1];
 			
 		}
-	this.printCumulativeHistogram();
+	//this.printCumulativeHistogram();
 	}
 	
 	public void printCumulativeHistogram() {
