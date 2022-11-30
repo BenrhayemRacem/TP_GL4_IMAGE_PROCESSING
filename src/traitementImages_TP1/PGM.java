@@ -24,9 +24,9 @@ public class PGM {
 	public short[] greyLevelHistogram = null ;
 	public int[] cumulativeHistogram = null ;
 
-	public void readImage() throws Exception {
+	public void readImage(String filename) throws Exception {
 		int i = 0;
-		File file = new File("chat2.pgm");
+		File file = new File(filename);
 		Scanner input = new Scanner(file);
 		List<String> list = new ArrayList<String>();
 

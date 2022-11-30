@@ -13,7 +13,7 @@ public class Stats {
 	
 	Stats(){
 		try {
-			pgmImage.readImage();
+			pgmImage.readImage("chat2.pgm");
 			pgmImage.calculateHistogram();
 			pgmImage.calculateCumulativeHistogram();
 			probabiliteCumule = new double [pgmImage.maxPixelValue +1];
@@ -123,8 +123,9 @@ public class Stats {
 			for (int k = 0; k < pgmImage.ly; k++) {
 				pgmImage.image[i][k]  = (short) LUT_contraste[pgmImage.image[i][k]];
 			}
-			pgmImage.writeImage("afterContrasteModif.pgm");
+			
 
 		}
+		pgmImage.writeImage("afterBruit.pgm");
 	}
 }

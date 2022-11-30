@@ -6,7 +6,7 @@ public class Main {
 		PGM pgmObj = new PGM( );
 		
 		try {
-//			pgmObj.readImage();
+//			pgmObj.readImage("chat2.pgm");
 //			pgmObj.writeImage("writeImage.pgm");
 //			pgmObj.calculateMean();
 //			pgmObj.calculateStandardDesviation();
@@ -15,8 +15,11 @@ public class Main {
 			Stats pgmStats = new Stats();
 			pgmStats.calculerProbabiliteCumulee();
 			pgmStats.calculerHistogrammeLegalise();
-			pgmStats.contraste_LUT(120, 120, 200, 200);
+			pgmStats.contraste_LUT(20, 20, 50, 50);
 			pgmStats.newImageAfterContraste();
+			
+			Filters pgmFilters = new Filters();
+			pgmFilters.bruit();
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
