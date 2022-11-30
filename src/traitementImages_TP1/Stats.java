@@ -126,6 +126,6 @@ public class Stats {
 			
 
 		}
-		pgmImage.writeImage("afterBruit.pgm");
+		pgmImage.writeImage("afterContrasteModif.pgm");
 	}
 }

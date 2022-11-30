@@ -16,10 +16,13 @@ public class Main {
 			pgmStats.calculerProbabiliteCumulee();
 			pgmStats.calculerHistogrammeLegalise();
 			pgmStats.contraste_LUT(20, 20, 50, 50);
-			pgmStats.newImageAfterContraste();
+			//pgmStats.newImageAfterContraste();
 			
 			Filters pgmFilters = new Filters();
-			pgmFilters.bruit();
+			//pgmFilters.bruit();
+			pgmFilters.addPaddingToImage();
+			pgmFilters.medianFilter(5);
+			pgmFilters.meanFilter(5);
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

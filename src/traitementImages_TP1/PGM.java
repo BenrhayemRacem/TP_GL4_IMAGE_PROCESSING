@@ -75,7 +75,7 @@ public class PGM {
 		}
 	}
 	
-	public void writeImage(String filename) throws Exception {
+	public void writeImage(String filename ) throws Exception {
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 	              new FileOutputStream(filename), "utf-8"))) {
 	   writer.write(format);writer.write("\n");
@@ -92,8 +92,25 @@ public class PGM {
 		   writer.write(line); writer.write("\n");
 	   }
 
-
-	   
+	}
+	}
+	//surcharge 
+	public void writeImage(String filename ,int lx ,int ly ,short[][] image ) throws Exception {
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+	              new FileOutputStream(filename), "utf-8"))) {
+	   writer.write(format);writer.write("\n");
+	   writer.write(ly+" "+lx+"\n");
+	   writer.write(maxPixelValue+"\n");
+	  // System.out.println(ly);
+	  
+	   for(int i=0 ; i<lx ; i++) {
+		   String line="";
+		   for (int k=0 ; k<ly ; k++) {
+			   line+= image[i][k]+" " ;
+		   }
+		   line = line.substring(0, line.length()-1);
+		   writer.write(line); writer.write("\n");
+	   }
 
 	}
 	}
