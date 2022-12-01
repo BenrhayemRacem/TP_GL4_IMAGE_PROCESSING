@@ -32,43 +32,11 @@ public class Main {
 			//pgmFilters.addPaddingToImage();
 			pgmFilters.medianFilter(5);
 			//pgmFilters.meanFilter(5);
-			short[] values = {1,-2,1,-2,5,-2,1,-2,1};
-			pgmFilters.rehausserContourFilter(values);
-//			JFrame f=new JFrame();//creating instance of JFrame    
-//			f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//			JButton b=new JButton("click");//creating instance of JButton  
-//			b.setBounds(130,100,100,40);
-//			f.add(b);//adding button in JFrame        
-//			f.setSize(400,500);//400 width and 500 height  
-//			//f.setLayout(null);//using no layout managers  
-//			f.setVisible(true);//making the frame visible
-//
-//	        
-//	        final BufferedImage image = ImageIO.read(new File("C:\\Users\\MSI\\Desktop\\ali.png"));
-//
-//	        JPanel pane = new JPanel() {
-//	            /**
-//				 * 
-//				 */
-//				private static final long serialVersionUID = 5499105979591387181L;
-//
-//				@Override
-//	            protected void paintComponent(Graphics g) {
-//	                super.paintComponent(g);
-//	                g.drawImage(image, 0, 0, null);
-//	            }
-//	        };
-//	        f.add(pane);
-	   
+			//short[] values = {1,-2,1,-2,5,-2,1,-2,1};
+			//pgmFilters.rehausserContourFilter(values);
+//			
+			double result = pgmFilters.SNR("balloons_noisy.ascii.pgm", "afterMedianFilter.pgm");
 
-			//BufferedImage myPicture = ImageIO.read(new File("path-to-file"));
-//			try {                
-//				BufferedImage  image = ImageIO.read(new File("chat2.pgm"));
-//				JPanel j = new JPanel() ;
-//				
-//		       } catch (IOException ex) {
-//		            // handle exception...
-//		       }
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

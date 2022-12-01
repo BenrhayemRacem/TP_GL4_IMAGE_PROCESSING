@@ -9,8 +9,8 @@ public class Filters {
 	
 	Filters() {
 		try {
-			//pgmImage.readImageV2("balloons_noisy.ascii.pgm");
-			pgmImage.readImageV2("chat2.pgm");
+			pgmImage.readImageV2("balloons_noisy.ascii.pgm");
+			//pgmImage.readImageV2("chat2.pgm");
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -211,5 +211,32 @@ public class Filters {
 			sum+=values.get(i);
 		}
 		return (short) (sum/values.size());
+	}
+	
+	public double SNR(String filenameOriginal ,String filenameFiltered) {
+		PGM pgmOriginal = new PGM() ;
+		PGM pgmFiltered = new PGM();
+		try {
+			pgmOriginal.readImageV2(filenameOriginal);
+			pgmFiltered.readImageV2(filenameFiltered);
+			
+			double numerator =0 ;
+			double denominator =0 ;
+			 pgmOriginal.calculateMean();
+			 double mean  = pgmOriginal.mean ;
+			for(int i =0 ; i<pgmOriginal.lx ; i++) {
+				for (int j=0 ; j< pgmOriginal.ly ; j++) {
+					numerator += Math.pow( pgmOriginal.image[i][j] - mean , 2 );
+					denominator+= Math.pow(pgmFiltered.image[i][j] - pgmOriginal.image[i][j],2);
+				}
+			}
+			
+			System.out.println(Math.sqrt(numerator/denominator));
+			return Math.sqrt(numerator/denominator);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+		
 	}
 }
