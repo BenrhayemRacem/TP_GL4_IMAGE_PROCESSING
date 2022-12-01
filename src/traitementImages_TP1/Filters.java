@@ -9,7 +9,9 @@ public class Filters {
 	
 	Filters() {
 		try {
-			pgmImage.readImage("chat2.pgm");
+			//pgmImage.readImageV2("balloons_noisy.ascii.pgm");
+			pgmImage.readImageV2("chat2.pgm");
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -144,11 +146,62 @@ public class Filters {
 		}
 	}
 	
+	public void rehausserContourFilter(short [] mask) {
+		int taille = (int) Math.sqrt(mask.length);
+		int boundary = (taille -1) /2 ;
+		for(int i=0 ; i< pgmImage.lx; i++) {
+			for(int j=0 ; j<pgmImage.ly ; j++) {
+				int rowStart = i -boundary ; 
+				int rowEnd = i+ boundary;
+				int columnStart = j-boundary;
+				int columnEnd = j+boundary ;
+				if((rowStart <0)||(rowEnd >= pgmImage.lx) || (columnStart<0) 
+						||(columnEnd>=pgmImage.ly)) {
+					continue;
+				}
+				//short []values = new short [taille*taille];
+				Vector<Short> values = new Vector<Short>();
+				for (int ii=rowStart ; ii<=rowEnd ; ii++) {
+					for(int jj=columnStart ; jj <=columnEnd ; jj++) {
+						values.add(pgmImage.image[ii][jj]);
+					}
+				}
+				//short val =this.calculerValeurRehausserContour(values,mask);
+			//	System.out.println(medianValue);
+				//pgmImage.image[i][j] = val;
+				short medianValue =this.calculerMedian(values);
+				//	System.out.println(medianValue);
+					pgmImage.image[i][j] =(short) (pgmImage.image[i][j]- medianValue);
+				
+			}
+		}
+		
+		try {
+			pgmImage.writeImage("rehausserContour.pgm");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public short calculerValeurRehausserContour(Vector<Short> values ,short[]mask) {
+		int sum = 0;
+		for(int i=0 ; i<mask.length ; i++) {
+			sum+= values.get(i) *mask[i];
+		}
+		if(sum<0) {
+			return 0 ;
+		}
+		if(sum>pgmImage.maxPixelValue) {
+			return (short) pgmImage.maxPixelValue ;
+		}
+		return (short) sum ;
+	}
 	public short calculerMedian(Vector<Short> values) {
 		
 
 		Collections.sort(values);
-		System.out.println(values);
+		//System.out.println(values);
 		return values.get(values.size()/2);
 		
 	}

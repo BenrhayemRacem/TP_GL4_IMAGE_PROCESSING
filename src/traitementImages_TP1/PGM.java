@@ -1,16 +1,21 @@
 package traitementImages_TP1;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Vector;
 
 public class PGM {
 
@@ -23,6 +28,53 @@ public class PGM {
 	public double standardDeviation = 0;
 	public short[] greyLevelHistogram = null ;
 	public int[] cumulativeHistogram = null ;
+	
+	public void readImageV2(String filename) throws Exception {
+		int i = 0;
+		File file = new File(filename);
+		Scanner input = new Scanner(file);
+		List<String> list = new ArrayList<String>();
+
+		while (input.hasNextLine()) {
+			list.add(input.nextLine());
+		}
+		format = list.get(0);
+		for (i = 0; i < list.size(); i++) {
+			if (i != 0) {
+				if (list.get(i).charAt(0) != '#') {
+					break;
+				}
+			}
+		}
+
+		ly = Integer.parseInt(list.get(i).substring(0, list.get(i).indexOf(' ')));
+		lx = Integer.parseInt(list.get(i).substring(list.get(i).indexOf(' ') + 1));
+		maxPixelValue = Integer.parseInt(list.get(i + 1));
+
+		//System.out.println(lx + "aaa" + ly + "aaaa" + maxPixelValue);
+
+		int j = i + 2;
+		image = new short[lx][ly];
+		Vector<Short> allValues = new Vector<Short>();
+
+		for (int ligne = j; ligne < list.size(); ligne++) {
+			String[] lineStr = list.get(ligne).split("\\s+");
+
+			for (int k = 0; k < lineStr.length; k++) {
+				//System.out.println(ligne-j);
+				allValues.add(Short.parseShort(lineStr[k]));
+				//image[ligne - j][k] = Short.parseShort(lineStr[k]);
+
+			}
+
+		}
+		System.out.println(allValues.size());
+		for(int iLigne=0 ; iLigne<lx ; iLigne++) {
+			for(int iColonne=0 ; iColonne<ly ; iColonne++) {
+				image[iLigne][iColonne] = allValues.get(iLigne*ly+iColonne);
+			}
+		}
+	}
 
 	public void readImage(String filename) throws Exception {
 		int i = 0;
@@ -124,7 +176,7 @@ public class PGM {
 			}
 		}
 		this.mean = sum /pixels ;
-		System.out.println(this.mean);
+		//System.out.println(this.mean);
 	
 	}
 	
@@ -138,7 +190,7 @@ public class PGM {
 			}
 		}
 		this.standardDeviation = Math.pow(sum/pixels , 0.5);
-		System.out.println(this.standardDeviation);
+		//System.out.println(this.standardDeviation);
 	}
 	
 	
